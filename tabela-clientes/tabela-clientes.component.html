@@ -1,0 +1,20 @@
+<div class="container">
+  <h3>{{titulo}}</h3>
+    <table class="table">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Nome</th>
+          <th>Telefone</th>
+          <th>Editar</th>
+          <th>Remover</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let c of clientes">
+        <td>{{c.nome}}</td>
+        <td>{{c.telefone}}</td>
+        <td><a class="btn btn-primary" [routerLink]="['/edicaoCliente', c.id]">Editar</a></td>
+        <td><a class="btn btn-danger" (click)="remover(c)">Remover</a></td>
+      </tr>
+    </table>
+  <a class="btn btn-success" routerLink="/novoCliente">Novo Cliente</a>
+</div>

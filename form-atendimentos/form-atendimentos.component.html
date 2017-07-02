@@ -1,0 +1,67 @@
+<div class="container">
+  <h3>{{titulo}}</h3>
+  <div>
+    <form>
+
+      <div class="form-group">
+        <label>Clientes</label>
+        <div *ngFor="let c of clientes">
+          <label>
+            <input type="radio"
+                  name="clientes"
+                  value="{{c.nome}}"
+                  [checked]="isClienteChecked(c)"
+                  (change)="updateCheckedCliente(c, $event)"/>
+            {{c.nome}}
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Funcionarios</label>
+        <div *ngFor="let f of funcionarios">
+          <label>
+            <input type="checkbox" required
+                  name="funcionarios"
+                  value="{{f.nome}}"
+                  [checked]="isFuncionarioChecked(f)"
+                  (change)="updateCheckedFuncionario(f, $event)"/>
+            {{f.nome}}
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Servicos</label>
+        <div *ngFor="let s of servicos">
+          <label>
+            <input type="checkbox" required
+                  name="servicos"
+                  value="{{s.nome}}"
+                  [checked]="isServicoChecked(s)"
+                  (change)="updateCheckedServico(s, $event)"/>
+            {{s.nome}} : R$ {{s.preco}}
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Total R$ </label>
+        <label>{{total}}</label>
+      </div>
+
+      <div class="form-group">
+        <label>Pago</label>
+        <select (change)="onChange($event.target.value)">
+            <option *ngFor="let i of objArray">{{i.name}}</option>
+        </select>
+      </div>
+
+      <div>
+        <input (click)="salvarAtendimento()" type="button" class="btn btn-success" value="Salvar">
+        <input (click)="cancelar()" type="button" class="btn btn-danger" value="Cancelar">
+      </div>
+
+    </form>
+  </div>
+</div>

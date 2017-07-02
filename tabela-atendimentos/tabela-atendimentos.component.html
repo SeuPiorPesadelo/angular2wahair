@@ -1,0 +1,32 @@
+<div class="container">
+  <h3>{{titulo}}</h3>
+    <table class="table">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Cliente</th>
+          <th>Funcionario</th>
+          <th>Serviços</th>
+          <th>Pago</th>
+          <th>Editar</th>
+          <th>Remover</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let a of atendimentos">
+        <td>{{a.cliente.nome}}</td>
+        <td>
+          <label *ngFor="let f of a.funcionarios">
+            {{f.nome}},
+          </label>
+        </td>
+        <td>
+          <label *ngFor="let a of a.servicos">
+            {{a.nome}},
+          </label>
+        </td>
+        <td>{{a.pago ? 'Pago':'Nao Pago'}}</td>
+        <td><a class="btn btn-primary" [routerLink]="['/edicaoAtendimento', a.id]">Editar</a></td>
+        <td><a class="btn btn-danger" (click)="remover(a)">Remover</a></td>
+      </tr>
+    </table>
+  <a class="btn btn-success" routerLink="/novoAtendimento">Novo Atendimento</a>
+</div>

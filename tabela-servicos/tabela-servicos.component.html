@@ -1,0 +1,26 @@
+<app-tabela-atendimentos></app-tabela-atendimentos>
+<br>
+<div class="container">
+<h3>{{titulo}}</h3>
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>Nome</th>
+      <th>Preço</th>
+      <th>Editar</th>
+      <th>Remover</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let servico of servicos">
+    <td>{{servico.nome}}</td>
+    <td>{{servico.preco}}</td>
+    <td><a class="btn btn-primary" [routerLink]="['/edicao', servico.id]">Editar</a></td>
+    <td><a class="btn btn-danger" (click)="remover(servico)">Remover</a></td>
+  </tr>
+</table>
+<a class="btn btn-success" routerLink="/novo">Novo Servico</a>
+</div>
+<br>
+<app-tabela-clientes></app-tabela-clientes>
+<br>
+<app-tabela-funcionarios></app-tabela-funcionarios>

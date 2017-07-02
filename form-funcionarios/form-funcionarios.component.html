@@ -1,0 +1,31 @@
+<div class="container">
+<h3>{{titulo}}</h3>
+<div>
+  <form>
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input [(ngModel)]="funcionario.nome" type="text" class="form-control" id="nome" name="nome" placeholder="Nome...">
+    </div>
+
+    <div class="form-group">
+      <label for="servico">Servicos</label>
+      <div *ngFor="let s of servicos">
+        <label>
+          <input type="checkbox"
+                name="servicos"
+                value="{{s.nome}}"
+                [checked]="isChecked(s)"
+                (change)="updateCheckedOptions(s, $event)"/>
+          {{s.nome}}
+        </label>
+      </div>
+    </div>
+
+    <div>
+      <input (click)="salvarFuncionario()" type="button" class="btn btn-success" value="Salvar">
+      <input (click)="cancelar()" type="button" class="btn btn-danger" value="Cancelar">
+    </div>
+
+  </form>
+</div>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+  <h3>{{titulo}}</h3>
+  <div>
+    <form>
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input [(ngModel)]="cliente.nome" type="text" class="form-control" id="nome" name="nome" placeholder="Nome...">
+      </div>
+
+      <div class="form-group">
+        <label for="telefone">Telefone</label>
+        <input [(ngModel)]="cliente.telefone" type="text" class="form-control" id="telefone" name="telefone" placeholder="telefone...">
+      </div>
+
+      <div>
+        <input (click)="salvarCliente()" type="button" class="btn btn-success" value="Salvar">
+        <input (click)="cancelar()" type="button" class="btn btn-danger" value="Cancelar">
+      </div>
+
+    </form>
+  </div>
+</div>
