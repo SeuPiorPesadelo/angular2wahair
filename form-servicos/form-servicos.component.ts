@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { CrudServicosService } from '../../app/crud-servicos.service';
 import { Servico } from '../../app/servico';
 import { Router, ActivatedRoute } from '@angular/router';
+import {FormGroup, FormBuilder, Validators, FormControl} from'@angular/forms';
 
 @Component({
   selector: 'app-form-servicos',
@@ -11,12 +12,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class FormServicosComponent implements OnInit {
 
   titulo = "Cadastro de Servicos";
-  servico: Servico;
+  servico: Servico = new Servico();
   codigo;
+  userForm: FormGroup;
   
   constructor(private servicoService: CrudServicosService,
               private router: Router,
-              private rota:ActivatedRoute) { }
+              private rota:ActivatedRoute,
+              private formBuilder: FormBuilder) {
+              this.userForm = this.formBuilder.group({
+                'name': ['', Validators.required],
+                'precoForm': ['', [Validators.required]]
+              });
+  }
 
   ngOnInit() {
     this.codigo = this.rota.snapshot.params['cod'];
@@ -28,19 +36,22 @@ export class FormServicosComponent implements OnInit {
   }
 
   salvarServico(){
-    console.log("undefined? " + (typeof this.codigo != 'undefined'));
-    if(typeof this.codigo != 'undefined'){
-      this.servicoService.atualizaServico(this.codigo, this.servico)
-        .subscribe(() => {
-            console.log("Update Success");
+    if (this.userForm.dirty && this.userForm.valid) {
+      if(typeof this.codigo != 'undefined'){
+        this.servicoService.atualizaServico(this.codigo, this.servico)
+          .subscribe(() => {
+              console.log("Update Success");
+              this.router.navigate(['/lista']);
+          });
+      } else {
+        this.servicoService.adicionarServico(this.servico)
+          .subscribe(() => {
+            console.log("Saved Success");
             this.router.navigate(['/lista']);
-        });
+          });//quando o POST for bem sucedido usará o .subscribe();
+      }
     } else {
-      this.servicoService.adicionarServico(this.servico)
-        .subscribe(() => {
-          console.log("Saved Success");
-          this.router.navigate(['/lista']);
-        });//quando o POST for bem sucedido usará o .subscribe();
+      alert('Preencha os campos');
     }
   }
 
