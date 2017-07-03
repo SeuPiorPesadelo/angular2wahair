@@ -26,6 +26,7 @@ export class FormServicosComponent implements OnInit {
               });
   }
 
+//onInit
   ngOnInit() {
     this.codigo = this.rota.snapshot.params['cod'];
     if(isNaN(this.codigo)){
