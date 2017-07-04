@@ -8,6 +8,7 @@ import { CrudFuncionariosService } from '../crud-funcionarios.service';
 import { Servico } from '../servico';
 import { CrudServicosService } from '../crud-servicos.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, FormControl} from'@angular/forms';
 
 @Component({
   selector: 'app-form-atendimentos',
@@ -25,13 +26,20 @@ export class FormAtendimentosComponent implements OnInit {
   pago: boolean;
   total: number;
   codigo;
+  userForm: FormGroup;
 
   constructor(private atendimentoService: CrudAtendimentosService,
               private clienteService: CrudClientesService,
               private funcionarioService: CrudFuncionariosService,
               private servicoService: CrudServicosService,
               private router: Router,
-              private rota:ActivatedRoute) { 
+              private rota:ActivatedRoute,
+              private formBuilder: FormBuilder) {
+              this.userForm = formBuilder.group({
+                'cli': ['', [Validators.required]],
+                'fun': ['', [Validators.required]],
+                'serv': ['', [Validators.required]]
+              });
   }
 
   ngOnInit() {
@@ -80,13 +88,13 @@ export class FormAtendimentosComponent implements OnInit {
             this.cancelar();
         });
     } else {
-      if(this.atendimento.cliente.nome != null && this.atendimento.funcionarios.length > 0 && this.atendimento.servicos.length > 0){
+      if (this.userForm.dirty && this.userForm.valid) {
         this.atendimentoService.adicionarAtendimento(this.atendimento)
           .subscribe(() => {
             this.cancelar();
           });
       } else {
-        console.log('Preencher todos os campos');
+        alert('Preencher todos os campos');
       }
     }
   }

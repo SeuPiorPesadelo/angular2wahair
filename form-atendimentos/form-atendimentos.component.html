@@ -1,13 +1,12 @@
 <div class="container">
   <h3>{{titulo}}</h3>
   <div>
-    <form>
-
+    <form [formGroup]="userForm" (submit)="salvarAtendimento()">
       <div class="form-group">
         <label>Clientes</label>
         <div *ngFor="let c of clientes">
           <label>
-            <input type="radio"
+            <input type="radio" formControlName="cli" 
                   name="clientes"
                   value="{{c.nome}}"
                   [checked]="isClienteChecked(c)"
@@ -15,13 +14,14 @@
             {{c.nome}}
           </label>
         </div>
+        <div *ngIf="userForm.controls.cli.invalid" class="form-control alert-danger">Escolha um Cliente</div>
       </div>
 
       <div class="form-group">
         <label>Funcionarios</label>
         <div *ngFor="let f of funcionarios">
           <label>
-            <input type="checkbox" required
+            <input type="checkbox" formControlName="fun" 
                   name="funcionarios"
                   value="{{f.nome}}"
                   [checked]="isFuncionarioChecked(f)"
@@ -29,13 +29,14 @@
             {{f.nome}}
           </label>
         </div>
+        <div *ngIf="userForm.controls.fun.invalid" class="form-control alert-danger">Escolha ao menos 1 Funcionario</div>
       </div>
 
       <div class="form-group">
         <label>Servicos</label>
         <div *ngFor="let s of servicos">
           <label>
-            <input type="checkbox" required
+            <input type="checkbox" formControlName="serv" 
                   name="servicos"
                   value="{{s.nome}}"
                   [checked]="isServicoChecked(s)"
@@ -43,6 +44,7 @@
             {{s.nome}} : R$ {{s.preco}}
           </label>
         </div>
+        <div *ngIf="userForm.controls.serv.invalid" class="form-control alert-danger">Escolha ao menos 1 Serviço</div>
       </div>
 
       <div class="form-group">
@@ -58,7 +60,7 @@
       </div>
 
       <div>
-        <input (click)="salvarAtendimento()" type="button" class="btn btn-success" value="Salvar">
+        <button type="submit" [disabled]="!userForm.valid" class="btn btn-success">Salvar</button>
         <input (click)="cancelar()" type="button" class="btn btn-danger" value="Cancelar">
       </div>
 

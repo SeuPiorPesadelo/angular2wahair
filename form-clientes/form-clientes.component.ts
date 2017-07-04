@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CrudClientesService } from '../../app/crud-clientes.service';
 import { Cliente } from '../../app/cliente';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, FormControl} from'@angular/forms';
 
 @Component({
   selector: 'app-form-clientes',
@@ -13,10 +14,17 @@ export class FormClientesComponent implements OnInit {
   titulo = "Cadastro de Clientes";
   cliente: Cliente;
   codigo;
+  userForm: FormGroup;
 
   constructor(private clienteService: CrudClientesService,
               private router: Router,
-              private rota:ActivatedRoute) { }
+              private rota:ActivatedRoute,
+              private formBuilder: FormBuilder) {
+              this.userForm = formBuilder.group({
+                'name': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+                'precoForm': ['', [Validators.required]]
+              });
+  }
 
   ngOnInit() {
     this.codigo = this.rota.snapshot.params['cod'];

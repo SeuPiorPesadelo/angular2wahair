@@ -20,8 +20,8 @@ export class FormServicosComponent implements OnInit {
               private router: Router,
               private rota:ActivatedRoute,
               private formBuilder: FormBuilder) {
-              this.userForm = this.formBuilder.group({
-                'name': ['', Validators.required],
+              this.userForm = formBuilder.group({
+                'name': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
                 'precoForm': ['', [Validators.required]]
               });
   }
